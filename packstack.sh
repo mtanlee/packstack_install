@@ -1,8 +1,7 @@
 #!/bin/bash
-read -p  "Input SETP:" Setp
-echo $Setp
-if [ $Setp=="INIT" ]
-then
+read -p  "Input SETP(INIT OR INSTALL):" SETP
+case '$SETP'
+"init" | "INIT" )
 read -p  "Input setting installlment and using for the wxGTK3 (e.g:yum or local):" Install
 
 read -p  "Input install openstack version:" Version
@@ -75,7 +74,6 @@ done
 ;;
 esac
 
-
 ##Set Linux Network
 sudo systemctl disable firewalld
 sudo systemctl stop firewalld
@@ -99,9 +97,8 @@ sudo yum update -y
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 echo -e "Restarting ...... "
 sudo reboot
-
-else
-
+;;
+"install" | "INSTALL" )
 sudo yum install -y openstack-packstack
 
 packstack --gen-answer-file openstack.ini
@@ -156,4 +153,5 @@ DEVICETYPE=ovs
 OVS_BRIDGE=br-ex
 ONBOOT=yes
 EOF
-fi
+;;
+esac
