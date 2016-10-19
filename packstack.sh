@@ -1,6 +1,6 @@
 #!/bin/bash
 read -p  "Input SETP(INIT OR INSTALL):" SETP
-case '$SETP'
+case '$SETP' in
 "init" | "INIT" )
 read -p  "Input setting installlment and using for the wxGTK3 (e.g:yum or local):" Install
 
